@@ -28,40 +28,36 @@ It’s an algorithm that:
 
 ---
 ## Results after 5M iterations 📊
-
-Here’s the **average strategy** learned by CFR in my implementation for 5M iterations (The overall regret did not reach the 1e-4 threshold.)
+*(The overall regret did not reach the 1e-4 threshold.)*
 
 ### Player 1 (P1)
 
-| InfoSet   | Action probabilities                  |
-|-----------|---------------------------------------|
-| Q         | check **100%**, bet 0%                |
-| J         | bet ~22%, check ~78%                  |
-| K         | bet ~66%, check ~34%                  |
-| Q \| cb   | call ~55%, fold ~45%                  |
-| J \| cb   | fold **100%**                         |
-| K \| cb   | call **100%**                         |
+| InfoSet   | Action probabilities       | Note |
+|-----------|----------------------------|------|
+| Q         | check **100%**, bet 0%     | Q never bets at equilibrium |
+| J         | bet ~22%, check ~78%       | Bluffs ~22% with J (≤ 1/3, consistent) |
+| K         | bet ~66%, check ~34%       | Value-bets ~66% (≈ 3 × bluff freq) |
+| Q \| cb   | call ~55%, fold ~45%       | Calls with Q ~α+1/3 (here 0.22+0.33 ≈ 0.55) |
+| J \| cb   | fold **100%**              | J always folds vs bet (can’t win) |
+| K \| cb   | call **100%**              | K always calls (best hand) |
 
 ### Player 2 (P2)
 
-| InfoSet   | Action probabilities                  |
-|-----------|---------------------------------------|
-| J \| c    | bet ~33%, check ~67%                  |
-| J \| b    | fold **100%**                         |
-| Q \| c    | check **100%**                        |
-| Q \| b    | call ~33%, fold ~67%                  |
-| K \| c    | bet **100%**                          |
-| K \| b    | call **100%**                         |
+| InfoSet   | Action probabilities       | Note |
+|-----------|----------------------------|------|
+| J \| c    | bet ~33%, check ~67%       | Semi-bluff with J 1/3 of the time |
+| J \| b    | fold **100%**              | J folds if raised |
+| Q \| c    | check **100%**             | Q checks, never bets itself |
+| Q \| b    | call ~33%, fold ~67%       | Defends vs bluff by calling 1/3 |
+| K \| c    | bet **100%**               | K always value-bets |
+| K \| b    | call **100%**              | K always calls vs bet |
 
+---
 
 ### 🧐 Interpretation
-- **Bluffing:** P1 bluffs ~22% of the time with J, and value-bets ~66% with K.
-- **Consistency:** This matches the theoretical equilibrium where bluff frequency with J is α and value-bet with K is 3α. Here α ≈ 0.22.
-- **Defense:** P2 defends by calling with Q about 1/3 of the time, and bluffing with J 1/3 after a check.
-- **Equilibrium:** These strategies line up with the published Nash equilibrium of Kuhn Poker (see Neller & Lanctot 2013).
-
-👉 Overall, CFR converged correctly towards the known Nash equilibrium, where Player 1’s expected value is about **-1/18 ≈ -0.0556**.
-
+- **Bluff/value balance:** P1 bluffs ~22% with J and value-bets ~66% with K → ratio matches theory.
+- **Defense:** P2 calls with Q only 1/3 of the time, which prevents P1 from bluffing too much.
+- **Consistency:** Every deviation (e.g. J folding always, K betting/calling always) matches the known Nash equilibrium of Kuhn Poker.
 ---
 
 ## References I Used 📚
