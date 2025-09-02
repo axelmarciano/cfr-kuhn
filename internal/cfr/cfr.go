@@ -129,7 +129,6 @@ func Launch() {
 	for {
 		launchIteration()
 		round++
-
 		overall := computeOverallRegret(infosets, round)
 		progressTowards := 0.0
 		if overall > 0 && !math.IsInf(overall, 0) {

@@ -27,8 +27,36 @@ It’s an algorithm that:
 - Over many iterations, the average strategy converges towards a **Nash equilibrium**
 
 ---
+## Results after 5M iterations 📊
+
+Here’s the **average strategy** learned by CFR in my implementation:
+P1:Q → check 100%, bet 0%
+P1:J → bet ~22%, check ~78%
+P1:K → bet ~66%, check ~34%
+P1:Q|cb → call ~55%, fold ~45%
+P1:J|cb → fold 100%
+P1:K|cb → call 100%
+
+P2:J|c → bet ~33%, check ~67%
+P2:J|b → fold 100%
+P2:Q|c → check 100%
+P2:Q|b → call ~33%, fold ~67%
+P2:K|c → bet 100%
+P2:K|b → call 100%
+
+### 🧐 Interpretation
+- **Bluffing:** P1 bluffs ~22% of the time with J, and value-bets ~66% with K.
+- **Consistency:** This matches the theoretical equilibrium where bluff frequency with J is α and value-bet with K is 3α. Here α ≈ 0.22.
+- **Defense:** P2 defends by calling with Q about 1/3 of the time, and bluffing with J 1/3 after a check.
+- **Equilibrium:** These strategies line up with the published Nash equilibrium of Kuhn Poker (see Neller & Lanctot 2013).
+
+👉 Overall, CFR converged correctly towards the known Nash equilibrium, where Player 1’s expected value is about **-1/18 ≈ -0.0556**.
+
+---
 
 ## References I Used 📚
 - [Counterfactual Regret Minimization (Zinkevich et al., 2007)](https://poker.cs.ualberta.ca/publications/NIPS07-cfr.pdf) — the original paper
 - [Regret Minimization in Games with Incomplete Information (Neller & Lanctot, 2013)](https://arxiv.org/abs/1305.0023) — easier overview
+
+
 
