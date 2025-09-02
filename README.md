@@ -29,20 +29,30 @@ It’s an algorithm that:
 ---
 ## Results after 5M iterations 📊
 
-Here’s the **average strategy** learned by CFR in my implementation:
-P1:Q → check 100%, bet 0%
-P1:J → bet ~22%, check ~78%
-P1:K → bet ~66%, check ~34%
-P1:Q|cb → call ~55%, fold ~45%
-P1:J|cb → fold 100%
-P1:K|cb → call 100%
+Here’s the **average strategy** learned by CFR in my implementation for 5M iterations (The overall regret did not reach the 1e-4 threshold.)
 
-P2:J|c → bet ~33%, check ~67%
-P2:J|b → fold 100%
-P2:Q|c → check 100%
-P2:Q|b → call ~33%, fold ~67%
-P2:K|c → bet 100%
-P2:K|b → call 100%
+### Player 1 (P1)
+
+| InfoSet   | Action probabilities                  |
+|-----------|---------------------------------------|
+| Q         | check **100%**, bet 0%                |
+| J         | bet ~22%, check ~78%                  |
+| K         | bet ~66%, check ~34%                  |
+| Q \| cb   | call ~55%, fold ~45%                  |
+| J \| cb   | fold **100%**                         |
+| K \| cb   | call **100%**                         |
+
+### Player 2 (P2)
+
+| InfoSet   | Action probabilities                  |
+|-----------|---------------------------------------|
+| J \| c    | bet ~33%, check ~67%                  |
+| J \| b    | fold **100%**                         |
+| Q \| c    | check **100%**                        |
+| Q \| b    | call ~33%, fold ~67%                  |
+| K \| c    | bet **100%**                          |
+| K \| b    | call **100%**                         |
+
 
 ### 🧐 Interpretation
 - **Bluffing:** P1 bluffs ~22% of the time with J, and value-bets ~66% with K.
